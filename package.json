@@ -10,8 +10,11 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-community/netinfo": "^9.4.1",
     "react": "18.2.0",
-    "react-native": "0.72.4"
+    "react-native": "0.72.4",
+    "react-native-device-info": "^10.9.0",
+    "react-native-ping": "^1.2.8"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
