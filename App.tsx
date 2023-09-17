@@ -47,7 +47,7 @@ function App(): JSX.Element {
 
   const getData = async (currentIp: string) => {
     try {
-      const ms = await Ping.start(currentIp, {timeout: 1000});
+      const ms = await Ping.start(currentIp, {timeout: 100}); //TODO: add timeout with slider
       console.log('ms', ms);
       if (ms >= 0) {
         setActiveHosts(prevActiveHosts => [...prevActiveHosts, currentIp]);
