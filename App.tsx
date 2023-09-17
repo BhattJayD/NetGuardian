@@ -6,10 +6,12 @@
  */
 
 import React, {useEffect, useState} from 'react';
-import {Text, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import Ping from 'react-native-ping';
 import DeviceInfo from 'react-native-device-info';
 import {generateIPRange} from './src/utils/helper';
+
+import LanPortScanner from 'react-native-lan-port-scanner';
 
 function App(): JSX.Element {
   const [hosts, setHosts] = useState<string[]>([]);
@@ -64,12 +66,25 @@ function App(): JSX.Element {
     getIp();
   }, []);
 
+  const portChecker = async (IP: string, PORT: number) => {
+    let result = await LanPortScanner.scanHost(IP, PORT, 1000, false);
+    if (result) {
+      console.log('====================================');
+      console.log(result);
+      console.log('====================================');
+    }
+  };
   return (
     <View>
       {ActiveHosts.map((host, index) => (
-        <Text key={index} style={{color: 'red'}}>
-          {host}
-        </Text>
+        <TouchableOpacity
+          onPress={() => {
+            portChecker(host, 80); //TODO: check http for not full port scan leter
+          }}>
+          <Text key={index} style={{color: 'red'}}>
+            {host}
+          </Text>
+        </TouchableOpacity>
       ))}
     </View>
   );
